@@ -21,6 +21,6 @@ COPY . .
 
 EXPOSE 3000
 
-RUN npx next telemetry disable
+ENV NEXT_TELEMETRY_DISABLED=1
 
 CMD ["npm", "run", "dev"]
