@@ -46,12 +46,12 @@ services:
           target: /file-validation/app
         - action: sync
           path: ./next.config.ts
-          target: ./file-validation/next.config.ts
+          target: /file-validation/next.config.ts
         - action: rebuild
           path: ./package.json
         - action: sync
-          path: /public/upload
-          target: ./file-validation/public/upload
+          path: ./public/upload
+          target: /file-validation/public/upload
     restart: unless-stopped
   nginx:
     build: 
