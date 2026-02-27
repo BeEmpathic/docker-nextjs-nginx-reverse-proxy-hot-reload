@@ -128,7 +128,7 @@ location / {
 
 
     proxy_pass http://file-validation:3000;
-    client_max_body_size 50M;
+    # client_max_body_size 50M;
     proxy_http_version 1.1;
     proxy_set_header Upgrade $http_upgrade;
     proxy_set_header Connection 'upgrade';
