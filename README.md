@@ -5,8 +5,11 @@ All done just so I can use nginx on my windows 11 machine
 
 ## Required stuff on your machine
 
-To run it you need node.js package manager and docker desktop.
+To run it you need:
+- node.js, package manager
+- docker desktop
 
+# To recreate the project: 
 
 ## First create the next.js app by running:
 
@@ -44,14 +47,17 @@ services:
         - action: sync
           path: ./app
           target: /file-validation/app
+          initial_sync: true
         - action: sync
           path: ./next.config.ts
           target: /file-validation/next.config.ts
+          initial_sync: true
         - action: rebuild
           path: ./package.json
         - action: sync
           path: ./public/upload
           target: /file-validation/public/upload
+          initial_sync: true
     restart: unless-stopped
   nginx:
     build: 
@@ -106,6 +112,8 @@ mkdir nginx
 
 ```Dockerfile
 FROM nginx:alpine3.22 AS base
+
+WORKDIR /nginx
 
 COPY ./default.conf /etc/nginx/conf.d
 
@@ -189,8 +197,17 @@ nginx
 ```
 
 
-## Start the container with docker compose up --build --watch
+## Fisrt start and build the container with docker compose up --build --watch
 ```bash
 docker compose up --build --watch
+```
+### every other time when you start it and you *didn't* change the Dockerfile or compose.yml file
+```bash
+docker compose up --watch
+```
+when you use build flag it rebuilds your container and with every rebuild it takes 1GB of your disk space
+### bonus to stop the container:
+```bash
+docker compose stop
 ```
 So after doing all that you should have app working with hot realod in development mode
